@@ -52,12 +52,12 @@ export default function Footer() {
           {/* Column 1: Brand & Bio (2 cols wide on desktop) */}
           <div className="sm:col-span-2 space-y-4">
             <div className="bg-white p-2.5 sm:p-3 rounded-lg inline-block shadow-sm">
-              <div className="relative h-12 sm:h-14 w-36 sm:w-44">
+              <div className="relative h-14 sm:h-16 w-44 sm:w-52">
                 <Image
                   src="/images/nilkanth-world-exim-logo.png"
                   alt="Nilkanth World Exim Logo"
                   fill
-                  sizes="180px"
+                  sizes="210px"
                   className="object-contain"
                 />
               </div>

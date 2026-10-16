@@ -46,13 +46,13 @@ export default function Header() {
             className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#0A2540] rounded-lg p-0.5"
             title="Nilkanth World Exim Homepage"
           >
-            <div className="relative h-11 sm:h-14 w-32 sm:w-44 flex items-center">
+            <div className="relative h-14 sm:h-16 w-44 sm:w-52 flex items-center">
               <Image
                 src="/images/nilkanth-world-exim-logo.png"
                 alt="Nilkanth World Exim - Export Trading Company Logo"
                 fill
                 priority
-                sizes="(max-width: 640px) 130px, 180px"
+                sizes="(max-width: 640px) 180px, 210px"
                 className="object-contain object-left"
               />
             </div>
@@ -134,7 +134,7 @@ export default function Header() {
 
       {/* Mobile Drawer Backdrop & Menu */}
       {isOpen && (
-        <div className="fixed inset-0 top-[60px] sm:top-[68px] z-50 lg:hidden">
+        <div className="fixed inset-0 top-[68px] sm:top-[74px] z-50 lg:hidden">
           {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
@@ -142,7 +142,7 @@ export default function Header() {
           />
 
           {/* Slide-down Drawer */}
-          <div className="relative bg-white shadow-2xl border-b border-gray-200 max-h-[calc(100vh-68px)] overflow-y-auto animate-fadeIn">
+          <div className="relative bg-white shadow-2xl border-b border-gray-200 max-h-[calc(100vh-74px)] overflow-y-auto animate-fadeIn">
             <div className="px-5 pt-4 pb-8 space-y-2">
               <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400 block pb-1">
                 Menu Navigation
