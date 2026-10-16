@@ -19,7 +19,6 @@ import {
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactForm from "@/components/ContactForm";
 import ProductCard from "@/components/ProductCard";
-import DownloadCatalogueModal from "@/components/DownloadCatalogueModal";
 import { products, getProductBySlug } from "@/data/products";
 import { siteConfig } from "@/lib/site-config";
 
@@ -117,12 +116,15 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   </div>
                 </div>
 
-                {/* Download Spec Sheet / Catalogue Modal Trigger */}
+                {/* Quick RFQ Anchor Action */}
                 <div className="pt-1">
-                  <DownloadCatalogueModal
-                    buttonLabel={`Download ${product.name} Spec Sheet`}
+                  <a
+                    href="#inquiry"
                     className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#0A2540] hover:bg-[#10365c] text-white text-xs sm:text-sm font-semibold shadow-md transition"
-                  />
+                  >
+                    <span>Request Quotation & Terms</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#dfc384]" />
+                  </a>
                 </div>
               </div>
             </div>

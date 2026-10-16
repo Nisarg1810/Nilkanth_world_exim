@@ -25,12 +25,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/catalogue`,
-      lastModified: new Date("2026-03-01"),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/quality-sourcing`,
       lastModified: new Date("2026-03-01"),
       changeFrequency: "monthly",

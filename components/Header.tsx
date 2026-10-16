@@ -11,7 +11,6 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Products", href: "/products" },
-  { label: "Export Catalogue", href: "/catalogue" },
   { label: "Quality & Sourcing", href: "/quality-sourcing" },
   { label: "Contact", href: "/contact" },
 ];

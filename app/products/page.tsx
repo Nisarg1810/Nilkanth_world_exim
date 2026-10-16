@@ -5,7 +5,6 @@ import { ArrowRight, CheckCircle2, FileText, PhoneCall, Filter, Sparkles } from 
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SectionHeading from "@/components/SectionHeading";
 import ProductCard from "@/components/ProductCard";
-import DownloadCatalogueModal from "@/components/DownloadCatalogueModal";
 import { products } from "@/data/products";
 import { siteConfig } from "@/lib/site-config";
 
@@ -64,16 +63,12 @@ export default function ProductsPage() {
               </h2>
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-              <DownloadCatalogueModal
-                buttonLabel="Download Full Catalogue"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#0A2540] hover:bg-[#10365c] text-white text-xs sm:text-sm font-semibold shadow-sm transition"
-              />
               <Link
-                href="/catalogue"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg border border-gray-300 hover:border-[#0A2540] text-gray-700 text-xs sm:text-sm font-semibold transition"
+                href="/contact"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#0A2540] hover:bg-[#10365c] text-white text-xs sm:text-sm font-semibold shadow-sm transition"
               >
-                <span>Specs Directory</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>Request Commercial RFQ</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#B89453]" />
               </Link>
             </div>
           </div>

@@ -23,7 +23,6 @@ import {
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import ProductCard from "@/components/ProductCard";
-import DownloadCatalogueModal from "@/components/DownloadCatalogueModal";
 import { products } from "@/data/products";
 import { siteConfig } from "@/lib/site-config";
 
@@ -82,11 +81,6 @@ export default function HomePage() {
               >
                 <span>Request B2B Quotation</span>
               </Link>
-
-              <DownloadCatalogueModal
-                buttonLabel="Download Catalogue"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg bg-[#0A2540]/80 hover:bg-[#0A2540] text-white border border-[#dfc384]/40 backdrop-blur-sm text-sm font-semibold transition"
-              />
             </div>
 
             {/* Commodity Fast-Nav Chips */}
@@ -205,31 +199,27 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Download Catalogue Bar */}
+          {/* Full Specifications Reassurance Bar */}
           <div className="mt-12 p-6 sm:p-8 bg-white rounded-2xl border border-gray-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="space-y-1 text-center sm:text-left">
               <span className="text-xs uppercase font-semibold text-[#B89453] tracking-wider">
-                Full Technical Documentation
+                Commodity Specifications & Sourcing
               </span>
               <h3 className="text-lg sm:text-xl font-bold text-[#0A2540] font-editorial">
-                Need the Complete Technical Specification Sheet for All 7 Commodities?
+                Need Detailed Parameter Sheets or Custom Packaging?
               </h3>
               <p className="text-xs sm:text-sm text-gray-500">
-                Includes HS codes, botanical classifications, container stuffing loads, and harvest calendars.
+                Review complete technical data, harvest calendars, and container loading capacities for all commodities.
               </p>
             </div>
 
             <div className="flex items-center gap-3 w-full sm:w-auto">
-              <DownloadCatalogueModal
-                buttonLabel="Download Export Catalogue"
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#0A2540] hover:bg-[#10365c] text-white text-xs sm:text-sm font-semibold shadow-md transition"
-              />
               <Link
-                href="/catalogue"
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-gray-300 hover:border-[#0A2540] text-gray-700 text-xs sm:text-sm font-semibold transition"
+                href="/products"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#0A2540] hover:bg-[#10365c] text-white text-xs sm:text-sm font-semibold shadow-md transition"
               >
-                <span>View Online</span>
-                <ChevronRight className="w-4 h-4" />
+                <span>View Full Product Directory</span>
+                <ChevronRight className="w-4 h-4 text-[#dfc384]" />
               </Link>
             </div>
           </div>
@@ -505,10 +495,14 @@ export default function HomePage() {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
-                <DownloadCatalogueModal
-                  buttonLabel="Download Product Catalogue"
+                <a
+                  href={`https://wa.me/${siteConfig.contact.whatsappDigits}?text=Hello%20Nilkanth%20World%20Exim,%20I%20would%20like%20to%20inquire%20about%20your%20products.`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg bg-white/10 hover:bg-white/20 text-white border border-white/20 font-semibold text-sm sm:text-base transition"
-                />
+                >
+                  <span>Inquire via WhatsApp Desk</span>
+                </a>
               </div>
 
               <div className="pt-6 text-xs text-gray-300 flex items-center justify-center gap-6 flex-wrap">
