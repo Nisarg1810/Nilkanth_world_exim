@@ -20,10 +20,27 @@ export const inquirySchema = z.object({
     message: "Please select a product of interest."
   }),
   estimatedQuantity: z.string().trim().optional().or(z.literal("")),
+  incoterm: z.enum([
+    "FOB (Free On Board)",
+    "CIF (Cost, Insurance & Freight)",
+    "CFR (Cost and Freight)",
+    "EXW (Ex Works)",
+    "Flexible / Quote Both FOB & CIF"
+  ]).optional().or(z.literal("")),
+  destinationPort: z.string().trim().optional().or(z.literal("")),
+  sampleRequest: z.boolean().optional(),
+  targetTimeline: z.enum([
+    "Immediate (Within 15 days)",
+    "1 - 2 Months",
+    "Quarterly Contract",
+    "General Sourcing / Planning"
+  ]).optional().or(z.literal("")),
+  preferredCurrency: z.enum(["USD ($)", "EUR (€)", "GBP (£)", "INR (₹)"]).optional().or(z.literal("")),
   inquiryType: z.enum([
     "Product Inquiry",
     "Price Quotation",
     "Bulk Order Inquiry",
+    "Sample Request",
     "Export Requirements",
     "Other Business Inquiry"
   ], {

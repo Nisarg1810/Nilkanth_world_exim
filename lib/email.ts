@@ -73,6 +73,26 @@ export async function sendInquiryEmail(data: InquiryFormData): Promise<EmailDeli
                 <td style="padding: 8px 0; font-weight: bold; color: #555;">Estimated Quantity:</td>
                 <td style="padding: 8px 0; color: #222;">${data.estimatedQuantity || "To be discussed"}</td>
               </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold; color: #555;">Incoterm:</td>
+                <td style="padding: 8px 0; color: #222;">${data.incoterm || "Not specified"}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold; color: #555;">Destination Port:</td>
+                <td style="padding: 8px 0; color: #222;">${data.destinationPort || "Not specified"}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold; color: #555;">Sample Requested:</td>
+                <td style="padding: 8px 0; color: #222;">${data.sampleRequest ? "YES (Official Pre-shipment Sample)" : "No"}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold; color: #555;">Target Timeline:</td>
+                <td style="padding: 8px 0; color: #222;">${data.targetTimeline || "Not specified"}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold; color: #555;">Preferred Currency:</td>
+                <td style="padding: 8px 0; color: #222;">${data.preferredCurrency || "USD ($)"}</td>
+              </tr>
             </table>
 
             <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-left: 4px solid #0A2540; border-radius: 4px;">

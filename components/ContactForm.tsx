@@ -3,7 +3,18 @@
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Send, CheckCircle2, AlertCircle, Loader2, MessageSquare, Shield } from "lucide-react";
+import {
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+  MessageSquare,
+  Shield,
+  Anchor,
+  Globe2,
+  FileCheck2,
+  FlaskConical
+} from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 interface ContactFormProps {
@@ -23,11 +34,34 @@ const productsList = [
 ];
 
 const inquiryTypes = [
-  "Product Inquiry",
   "Price Quotation",
   "Bulk Order Inquiry",
+  "Sample Request",
+  "Product Inquiry",
   "Export Requirements",
   "Other Business Inquiry"
+];
+
+const incotermsList = [
+  "FOB (Free On Board - Hazira / Mundra)",
+  "CIF (Cost, Insurance & Freight)",
+  "CFR (Cost and Freight)",
+  "EXW (Ex Works - Gujarat Facility)",
+  "Flexible / Quote Both FOB & CIF"
+];
+
+const timelineOptions = [
+  "Immediate (Within 15 days)",
+  "1 - 2 Months",
+  "Quarterly Contract",
+  "General Sourcing / Planning"
+];
+
+const currencyOptions = [
+  "USD ($)",
+  "EUR (€)",
+  "GBP (£)",
+  "INR (₹)"
 ];
 
 function ContactFormInner({ initialProduct }: ContactFormProps) {
@@ -48,6 +82,11 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
     country: "",
     product: defaultProduct,
     estimatedQuantity: "",
+    incoterm: "FOB (Free On Board - Hazira / Mundra)",
+    destinationPort: "",
+    sampleRequest: false,
+    targetTimeline: "1 - 2 Months",
+    preferredCurrency: "USD ($)",
     inquiryType: "Price Quotation",
     message: "",
     privacyConsent: false,
@@ -84,6 +123,24 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
     }
   };
 
+  const generateWhatsAppUrl = () => {
+    const lines = [
+      `*New B2B Inquiry — Nilkanth World Exim*`,
+      `*Product:* ${formData.product}`,
+      `*Type:* ${formData.inquiryType}`,
+      `*Buyer:* ${formData.fullName || "International Buyer"}`,
+      formData.companyName ? `*Company:* ${formData.companyName}` : null,
+      formData.country ? `*Country:* ${formData.country}` : null,
+      formData.estimatedQuantity ? `*Est. Volume:* ${formData.estimatedQuantity}` : null,
+      `*Incoterm:* ${formData.incoterm}`,
+      formData.destinationPort ? `*Port of Discharge:* ${formData.destinationPort}` : null,
+      formData.sampleRequest ? `*Sample Required:* YES` : null,
+      formData.message ? `*Notes:* ${formData.message}` : null,
+    ].filter(Boolean).join("\n");
+
+    return `https://wa.me/${siteConfig.contact.whatsappDigits}?text=${encodeURIComponent(lines)}`;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -103,8 +160,8 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
       if (response.ok && result.success) {
         setStatus({
           type: "success",
-          message: "Thank you for reaching out to Nilkanth World Exim.",
-          details: result.message || "Your business inquiry has been recorded. Our export desk will review your specifications and contact you shortly.",
+          message: "Commercial RFQ Received Successfully",
+          details: result.message || "Your export inquiry has been registered. Our Surat commercial desk will review your specifications, verify current crop arrivals, and send a proforma quotation within 24 hours.",
         });
         // Reset form
         setFormData({
@@ -115,6 +172,11 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
           country: "",
           product: defaultProduct,
           estimatedQuantity: "",
+          incoterm: "FOB (Free On Board - Hazira / Mundra)",
+          destinationPort: "",
+          sampleRequest: false,
+          targetTimeline: "1 - 2 Months",
+          preferredCurrency: "USD ($)",
           inquiryType: "Price Quotation",
           message: "",
           privacyConsent: false,
@@ -123,8 +185,8 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
         // Honest disclosure when email provider is not yet configured
         setStatus({
           type: "unconfigured",
-          message: "Email Server In Configuration Mode",
-          details: result.error || "The server email delivery integration (RESEND_API_KEY) is currently awaiting setup in the production environment. In the meantime, please connect directly with our export desk via WhatsApp or phone.",
+          message: "Email Server In Setup Mode — Instant WhatsApp Available",
+          details: result.error || "The server mail integration is in setup mode. Please tap the button below to forward your exact RFQ parameters directly to our commercial desk on WhatsApp (+91 81606 13430) for an immediate response.",
         });
       } else {
         setStatus({
@@ -137,7 +199,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
       setStatus({
         type: "error",
         message: "Network Error",
-        details: "A communication error occurred while connecting to the server. Please try again or reach out on WhatsApp.",
+        details: "A communication error occurred while connecting to the server. You can also contact us directly via WhatsApp (+91 81606 13430).",
       });
     } finally {
       setIsSubmitting(false);
@@ -145,14 +207,52 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl border border-gray-200/80 p-4 sm:p-8 lg:p-10">
-      <div className="border-b border-gray-100 pb-4 sm:pb-5 mb-5 sm:mb-6">
-        <h3 className="text-xl sm:text-2xl font-bold text-[#0A2540] font-editorial">
-          Submit Commercial Inquiry
-        </h3>
-        <p className="text-xs sm:text-sm text-gray-600 mt-1">
-          Provide your trade parameters below. Our trade desk coordinates directly with Indian agricultural sources.
-        </p>
+    <div className="bg-white rounded-2xl shadow-xl border border-gray-200/90 p-5 sm:p-8 lg:p-10">
+      {/* Header bar */}
+      <div className="border-b border-gray-100 pb-5 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#E5EAE1] text-[#173F35] text-[11px] font-semibold uppercase tracking-wider mb-2">
+            <Globe2 className="w-3.5 h-3.5 text-[#173F35]" />
+            <span>International B2B Trade Desk</span>
+          </div>
+          <h3 className="text-xl sm:text-2xl font-bold text-[#0A2540] font-editorial">
+            Request Export Price Quotation / Sample
+          </h3>
+          <p className="text-xs sm:text-sm text-gray-600 mt-1">
+            Specify Incoterms, destination port, volumes, and quality grades for official commercial terms.
+          </p>
+        </div>
+
+        {/* Instant WhatsApp Quick Link */}
+        <a
+          href={generateWhatsAppUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-semibold shrink-0 transition"
+        >
+          <MessageSquare className="w-4 h-4 text-emerald-600" />
+          <span>Quick WhatsApp RFQ</span>
+        </a>
+      </div>
+
+      {/* Trust Badges Strip */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6 p-3 bg-gray-50 rounded-xl border border-gray-200 text-[11px] text-gray-600">
+        <div className="flex items-center gap-1.5">
+          <Anchor className="w-3.5 h-3.5 text-[#0A2540] shrink-0" />
+          <span>FOB / CIF / CFR Terms</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <FlaskConical className="w-3.5 h-3.5 text-[#0A2540] shrink-0" />
+          <span>Pre-Shipment Samples</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <FileCheck2 className="w-3.5 h-3.5 text-[#0A2540] shrink-0" />
+          <span>Phyto & Fumigation</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <Shield className="w-3.5 h-3.5 text-[#0A2540] shrink-0" />
+          <span>SGS / Intertek Ready</span>
+        </div>
       </div>
 
       {/* Success Notification */}
@@ -161,7 +261,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
           <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
           <div className="text-sm">
             <h4 className="font-semibold text-emerald-800">{status.message}</h4>
-            <p className="mt-1 text-emerald-700 leading-relaxed">{status.details}</p>
+            <p className="mt-1 text-emerald-700 leading-relaxed text-xs sm:text-sm">{status.details}</p>
           </div>
         </div>
       )}
@@ -173,17 +273,15 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
           <div className="text-sm">
             <h4 className="font-semibold text-amber-800">{status.message}</h4>
             <p className="mt-1 text-amber-700 leading-relaxed text-xs sm:text-sm">{status.details}</p>
-            <div className="mt-3 flex items-center gap-3">
+            <div className="mt-3">
               <a
-                href={`https://wa.me/${siteConfig.contact.whatsappDigits}?text=Hello%20Nilkanth%20World%20Exim,%20I%20would%20like%20to%20inquire%20about%20${encodeURIComponent(
-                  formData.product
-                )}`}
+                href={generateWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md text-xs font-semibold shadow"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow transition"
               >
-                <MessageSquare className="w-3.5 h-3.5" />
-                <span>Open in WhatsApp (+91 81606 13430)</span>
+                <MessageSquare className="w-4 h-4" />
+                <span>Send via WhatsApp (+91 81606 13430)</span>
               </a>
             </div>
           </div>
@@ -202,11 +300,12 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Contact details row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {/* Full Name */}
           <div>
             <label htmlFor="fullName" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-              Full Name <span className="text-red-500">*</span>
+              Contact Person / Full Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -215,7 +314,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
               required
               value={formData.fullName}
               onChange={handleChange}
-              placeholder="e.g. Rahul Sharma"
+              placeholder="e.g. Klaus Weber / Tariq Al-Mansoor"
               className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 transition"
             />
           </div>
@@ -223,7 +322,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
           {/* Company Name */}
           <div>
             <label htmlFor="companyName" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-              Company Name <span className="text-gray-400 font-normal lowercase">(optional)</span>
+              Company / Importer Name <span className="text-gray-400 font-normal lowercase">(optional)</span>
             </label>
             <input
               type="text"
@@ -231,7 +330,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
               name="companyName"
               value={formData.companyName}
               onChange={handleChange}
-              placeholder="e.g. Apex Global Trading FZE"
+              placeholder="e.g. Apex Global Foodstuff LLC"
               className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 transition"
             />
           </div>
@@ -250,7 +349,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
               required
               value={formData.email}
               onChange={handleChange}
-              placeholder="name@company.com"
+              placeholder="sourcing@company.com"
               className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 transition"
             />
           </div>
@@ -258,7 +357,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
           {/* Phone / WhatsApp */}
           <div>
             <label htmlFor="phone" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-              Phone / WhatsApp <span className="text-gray-400 font-normal lowercase">(optional)</span>
+              Phone / WhatsApp (with country code) <span className="text-gray-400 font-normal lowercase">(optional)</span>
             </label>
             <input
               type="tel"
@@ -266,33 +365,18 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              placeholder="+971 50 123 4567"
+              placeholder="+971 50 123 4567 / +49 40 123456"
               className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 transition"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          {/* Country */}
-          <div>
-            <label htmlFor="country" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-              Country <span className="text-gray-400 font-normal lowercase">(optional)</span>
-            </label>
-            <input
-              type="text"
-              id="country"
-              name="country"
-              value={formData.country}
-              onChange={handleChange}
-              placeholder="e.g. UAE, UK, Singapore"
-              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 transition"
-            />
-          </div>
-
+        {/* Commodity and Trade Parameters */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 pt-1">
           {/* Product of Interest */}
           <div>
             <label htmlFor="product" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-              Product of Interest <span className="text-red-500">*</span>
+              Commodity <span className="text-red-500">*</span>
             </label>
             <select
               id="product"
@@ -313,7 +397,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
           {/* Estimated Quantity */}
           <div>
             <label htmlFor="estimatedQuantity" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-              Estimated Quantity <span className="text-gray-400 font-normal lowercase">(optional)</span>
+              Target Quantity / FCL <span className="text-gray-400 font-normal lowercase">(optional)</span>
             </label>
             <input
               type="text"
@@ -321,37 +405,150 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
               name="estimatedQuantity"
               value={formData.estimatedQuantity}
               onChange={handleChange}
-              placeholder="e.g. 1 x 20ft FCL / 5 MT"
+              placeholder="e.g. 1 x 20ft FCL (18 MT)"
+              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 transition"
+            />
+          </div>
+
+          {/* Destination Country */}
+          <div>
+            <label htmlFor="country" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+              Destination Country <span className="text-gray-400 font-normal lowercase">(optional)</span>
+            </label>
+            <input
+              type="text"
+              id="country"
+              name="country"
+              value={formData.country}
+              onChange={handleChange}
+              placeholder="e.g. UAE, Germany, UK, Vietnam"
               className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 transition"
             />
           </div>
         </div>
 
-        {/* Inquiry Type */}
-        <div>
-          <label htmlFor="inquiryType" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-            Inquiry Type <span className="text-red-500">*</span>
-          </label>
-          <select
-            id="inquiryType"
-            name="inquiryType"
-            required
-            value={formData.inquiryType}
+        {/* International Trade Terms (Incoterms, Port, Currency) */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          {/* Incoterm */}
+          <div>
+            <label htmlFor="incoterm" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+              Preferred Incoterm <span className="text-gray-400 font-normal lowercase">(optional)</span>
+            </label>
+            <select
+              id="incoterm"
+              name="incoterm"
+              value={formData.incoterm}
+              onChange={handleChange}
+              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 bg-white transition"
+            >
+              {incotermsList.map((term) => (
+                <option key={term} value={term}>
+                  {term}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Destination Seaport / Airport */}
+          <div>
+            <label htmlFor="destinationPort" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+              Discharge Port <span className="text-gray-400 font-normal lowercase">(optional)</span>
+            </label>
+            <input
+              type="text"
+              id="destinationPort"
+              name="destinationPort"
+              value={formData.destinationPort}
+              onChange={handleChange}
+              placeholder="e.g. Jebel Ali, Hamburg, Felixstowe"
+              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 transition"
+            />
+          </div>
+
+          {/* Preferred Currency */}
+          <div>
+            <label htmlFor="preferredCurrency" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+              Quote Currency <span className="text-gray-400 font-normal lowercase">(optional)</span>
+            </label>
+            <select
+              id="preferredCurrency"
+              name="preferredCurrency"
+              value={formData.preferredCurrency}
+              onChange={handleChange}
+              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 bg-white transition"
+            >
+              {currencyOptions.map((curr) => (
+                <option key={curr} value={curr}>
+                  {curr}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Inquiry Type & Shipment Timeline */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {/* Inquiry Type */}
+          <div>
+            <label htmlFor="inquiryType" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+              Inquiry Type <span className="text-red-500">*</span>
+            </label>
+            <select
+              id="inquiryType"
+              name="inquiryType"
+              required
+              value={formData.inquiryType}
+              onChange={handleChange}
+              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 bg-white transition"
+            >
+              {inquiryTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Target Timeline */}
+          <div>
+            <label htmlFor="targetTimeline" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+              Target Shipment Timeline <span className="text-gray-400 font-normal lowercase">(optional)</span>
+            </label>
+            <select
+              id="targetTimeline"
+              name="targetTimeline"
+              value={formData.targetTimeline}
+              onChange={handleChange}
+              className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 bg-white transition"
+            >
+              {timelineOptions.map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Sample Request Checkbox Feature */}
+        <div className="p-3.5 bg-amber-50/70 border border-amber-200 rounded-xl flex items-start gap-3">
+          <input
+            type="checkbox"
+            id="sampleRequest"
+            name="sampleRequest"
+            checked={formData.sampleRequest}
             onChange={handleChange}
-            className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 bg-white transition"
-          >
-            {inquiryTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+            className="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#0A2540] focus:ring-[#0A2540]"
+          />
+          <label htmlFor="sampleRequest" className="text-xs text-gray-800 leading-relaxed cursor-pointer">
+            <span className="font-semibold text-[#0A2540]">Request Pre-Shipment Lab Sample:</span> Check this box if your quality assurance lab requires physical product samples (50g–250g) and analysis certificates dispatched via DHL/FedEx prior to commercial contract finalization.
+          </label>
         </div>
 
         {/* Message / Requirements */}
         <div>
           <label htmlFor="message" className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
-            Message / Requirements <span className="text-red-500">*</span>
+            Technical Specifications / Packaging Notes <span className="text-red-500">*</span>
           </label>
           <textarea
             id="message"
@@ -360,7 +557,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
             required
             value={formData.message}
             onChange={handleChange}
-            placeholder="Please specify your target specifications, packaging preferences, destination port, or sampling requests..."
+            placeholder="Please specify purity percentage (e.g. 99% Sortex), moisture threshold, packaging type (25kg PP / 50kg Kraft paper), palletization preferences, and target discharge seaport..."
             className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 transition resize-y"
           />
         </div>
@@ -377,41 +574,51 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
             className="mt-1 h-4 w-4 rounded border-gray-300 text-[#0A2540] focus:ring-[#0A2540]"
           />
           <label htmlFor="privacyConsent" className="text-xs text-gray-600 leading-normal">
-            I agree that the details provided will be used exclusively by Nilkanth World Exim to evaluate and respond to this business trade inquiry in accordance with the{" "}
+            I agree that these trade parameters will be used exclusively by Nilkanth World Exim to evaluate and prepare this export quotation in accordance with the{" "}
             <Link href="/privacy-policy" className="text-[#0A2540] font-medium underline hover:text-[#D92525]">
               Privacy Policy
             </Link>.
           </label>
         </div>
 
-        {/* Submit Button */}
-        <div className="pt-2">
+        {/* Submit & WhatsApp CTAs */}
+        <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full flex items-center justify-center gap-2 bg-[#0A2540] hover:bg-[#10365c] text-white font-medium py-3.5 px-6 rounded-lg text-sm shadow-md transition-all disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A2540] group"
+            className="flex-1 flex items-center justify-center gap-2 bg-[#0A2540] hover:bg-[#10365c] text-white font-medium py-3.5 px-6 rounded-lg text-sm shadow-md transition-all disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A2540] group"
           >
             {isSubmitting ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin text-[#B89453]" />
-                <span>Processing Inquiry...</span>
+                <span>Processing RFQ...</span>
               </>
             ) : (
               <>
-                <span>Send Business Inquiry</span>
+                <span>Submit Official Export RFQ</span>
                 <Send className="w-4 h-4 text-[#B89453] group-hover:translate-x-1 transition-transform" />
               </>
             )}
           </button>
+
+          <a
+            href={generateWhatsAppUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm shadow-md transition"
+          >
+            <MessageSquare className="w-4 h-4" />
+            <span>Chat on WhatsApp</span>
+          </a>
         </div>
       </form>
 
-      <div className="mt-6 pt-5 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-500">
+      <div className="mt-6 pt-5 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-gray-500">
         <div className="flex items-center gap-1.5">
-          <Shield className="w-3.5 h-3.5 text-emerald-600" />
-          <span>Direct Trade Desk • Confidential B2B Processing</span>
+          <Shield className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+          <span>Direct Trade Desk • Confidential B2B Processing • APEDA Registered</span>
         </div>
-        <span>Surat, Gujarat, India</span>
+        <span>Surat, Gujarat, India • Gateway Ports: Hazira & Mundra</span>
       </div>
     </div>
   );
@@ -422,7 +629,7 @@ export default function ContactForm(props: ContactFormProps) {
     <Suspense
       fallback={
         <div className="bg-white rounded-2xl p-8 border border-gray-200 text-center text-sm text-gray-500">
-          Loading inquiry form...
+          Loading export inquiry form...
         </div>
       }
     >
@@ -430,4 +637,3 @@ export default function ContactForm(props: ContactFormProps) {
     </Suspense>
   );
 }
-

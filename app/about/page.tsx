@@ -113,6 +113,33 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
+
+          {/* Certifications & Trade Accreditations Strip */}
+          <div className="mt-14 pt-10 border-t border-gray-100">
+            <div className="text-center mb-8">
+              <span className="text-xs font-semibold text-[#B89453] uppercase tracking-wider">
+                Official Trade Recognition & Certifications
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold text-[#0A2540] font-editorial mt-1">
+                Adhering to Indian & International Trade Benchmarks
+              </h3>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {siteConfig.certifications.map((c) => (
+                <div key={c.id} className="p-4 rounded-xl bg-gray-50 border border-gray-200 flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#0A2540] text-[#dfc384] flex items-center justify-center shrink-0 mt-0.5">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-[#0A2540]">{c.name}</h4>
+                    <p className="text-[11px] text-gray-500 mt-0.5">{c.issuer}</p>
+                    <p className="text-xs text-gray-600 mt-1 leading-relaxed">{c.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

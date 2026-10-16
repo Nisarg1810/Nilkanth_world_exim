@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Box, Calendar } from "lucide-react";
 import { Product } from "@/data/products";
 
 interface ProductCardProps {
@@ -19,19 +19,29 @@ export default function ProductCard({ product }: ProductCardProps) {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-75 group-hover:opacity-60 transition-opacity" />
 
-        {/* Category Badge */}
-        <span className="absolute top-3 left-3 bg-[#0A2540]/90 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider border border-white/20">
-          {product.category}
-        </span>
-
-        {/* Hindi / Native Name */}
-        {product.hindiName && (
-          <span className="absolute bottom-3 left-3 text-white text-xs font-medium tracking-wide drop-shadow-md">
-            {product.hindiName}
+        {/* Category & HS Code Badges */}
+        <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
+          <span className="bg-[#0A2540]/90 backdrop-blur-sm text-white text-[10px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider border border-white/20">
+            {product.category}
           </span>
-        )}
+          <span className="bg-black/60 backdrop-blur-sm text-[#dfc384] text-[10px] font-mono px-2 py-0.5 rounded border border-white/10">
+            HS {product.hsCode.split(" ")[0]}
+          </span>
+        </div>
+
+        {/* Botanical / Native Name Overlay */}
+        <div className="absolute bottom-3 left-3 right-3 flex items-baseline justify-between text-white drop-shadow-md">
+          {product.hindiName && (
+            <span className="text-xs font-medium tracking-wide">
+              {product.hindiName}
+            </span>
+          )}
+          <span className="text-[11px] text-gray-300 italic truncate max-w-[150px]">
+            {product.botanicalName}
+          </span>
+        </div>
       </div>
 
       {/* Card Content */}
@@ -45,15 +55,27 @@ export default function ProductCard({ product }: ProductCardProps) {
             </h3>
           </div>
 
-          <p className="text-gray-600 text-xs sm:text-sm line-clamp-3 leading-relaxed mb-4">
+          <p className="text-gray-600 text-xs sm:text-sm line-clamp-2 leading-relaxed mb-3">
             {product.shortDescription}
           </p>
 
+          {/* Quick Trade Specs Strip */}
+          <div className="grid grid-cols-2 gap-2 mb-4 p-2.5 bg-gray-50 rounded-lg text-[11px] text-gray-600 border border-gray-100">
+            <div className="flex items-center gap-1.5 truncate">
+              <Box className="w-3.5 h-3.5 text-[#B89453] shrink-0" />
+              <span className="truncate">{product.containerCapacity.fcl20.split("(")[0]}</span>
+            </div>
+            <div className="flex items-center gap-1.5 truncate">
+              <Calendar className="w-3.5 h-3.5 text-[#B89453] shrink-0" />
+              <span className="truncate">{product.cropSeason.split(" ")[0]} Peak</span>
+            </div>
+          </div>
+
           {/* Key characteristics preview */}
-          <div className="space-y-1.5 mb-5 pt-3 border-t border-gray-100 text-xs text-gray-500">
+          <div className="space-y-1.5 mb-5 pt-1 text-xs text-gray-500">
             {product.characteristics.slice(0, 2).map((char, idx) => (
               <div key={idx} className="flex items-start gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#B89453] shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                 <span className="line-clamp-1">{char}</span>
               </div>
             ))}
@@ -66,15 +88,15 @@ export default function ProductCard({ product }: ProductCardProps) {
             href={`/products/${product.slug}`}
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0A2540] hover:text-[#D92525] transition"
           >
-            <span>Product Details</span>
+            <span>Full Specs</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
 
           <Link
             href={`/contact?product=${encodeURIComponent(product.name)}`}
-            className="px-3 py-1.5 text-xs font-medium bg-[#E5EAE1] text-[#173F35] hover:bg-[#0A2540] hover:text-white rounded-md transition"
+            className="px-3.5 py-1.5 text-xs font-semibold bg-[#0A2540] text-white hover:bg-[#D92525] rounded-md transition shadow-sm"
           >
-            Inquire
+            Request RFQ
           </Link>
         </div>
       </div>

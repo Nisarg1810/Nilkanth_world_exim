@@ -88,7 +88,10 @@ export default function Footer() {
                 <Link href="/about" className="hover:text-white hover:underline transition">About Us</Link>
               </li>
               <li>
-                <Link href="/products" className="hover:text-white hover:underline transition">Product Catalogue</Link>
+                <Link href="/products" className="hover:text-white hover:underline transition">Product Portfolio</Link>
+              </li>
+              <li>
+                <Link href="/catalogue" className="hover:text-[#dfc384] text-[#dfc384] font-medium hover:underline transition">Export Catalogue & Specs</Link>
               </li>
               <li>
                 <Link href="/quality-sourcing" className="hover:text-white hover:underline transition">Quality & Sourcing</Link>
