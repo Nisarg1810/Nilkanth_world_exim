@@ -39,31 +39,31 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#06192a] via-transparent to-black/30" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28 w-full">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-28 w-full">
           <div className="max-w-2xl lg:max-w-3xl">
             {/* Top Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold tracking-wider uppercase mb-6 animate-fadeIn">
+            <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-[11px] sm:text-xs font-semibold tracking-wider uppercase mb-4 sm:mb-6 animate-fadeIn">
               <span className="w-2 h-2 rounded-full bg-[#D92525] animate-pulse" />
               <span>Direct Indian Agro Sourcing Desk • Surat, Gujarat</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] font-editorial drop-shadow-md">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.18] sm:leading-[1.15] font-editorial drop-shadow-md">
               India’s Finest Spices & Agricultural Products for{" "}
               <span className="text-[#dfc384] italic font-normal">Global Markets</span>
             </h1>
 
             {/* Supporting Copy */}
-            <p className="mt-5 text-base sm:text-lg text-gray-200 leading-relaxed max-w-2xl font-light">
+            <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-gray-200 leading-relaxed max-w-2xl font-light">
               Discover a curated range of Indian spices and agricultural commodities, supported by a commitment to
               professional service, transparent communication, and dependable business relationships.
             </p>
 
             {/* CTAs */}
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
               <Link
                 href="#products"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-[#D92525] hover:bg-[#b91c1c] text-white font-medium text-sm sm:text-base shadow-lg hover:shadow-xl transition-all group"
+                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-lg bg-[#D92525] hover:bg-[#b91c1c] text-white font-medium text-sm sm:text-base shadow-lg hover:shadow-xl transition-all group"
               >
                 <span>Explore Our Products</span>
                 <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
@@ -71,29 +71,29 @@ export default function HomePage() {
 
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-sm font-medium text-sm sm:text-base transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-lg bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-sm font-medium text-sm sm:text-base transition-all"
               >
                 <span>Request an Inquiry</span>
               </Link>
             </div>
 
             {/* Sourcing Anchors */}
-            <div className="mt-12 pt-8 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-4 text-white/90 text-xs">
-              <div>
-                <p className="text-[#dfc384] font-bold text-base">Surat, IN</p>
-                <p className="text-gray-300">Commercial Operations</p>
+            <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-white/90 text-xs">
+              <div className="p-2 sm:p-0">
+                <p className="text-[#dfc384] font-bold text-sm sm:text-base">Surat, IN</p>
+                <p className="text-gray-300 text-[11px] sm:text-xs">Commercial Operations</p>
               </div>
-              <div>
-                <p className="text-[#dfc384] font-bold text-base">7 Key Crops</p>
-                <p className="text-gray-300">Focused Agro Portfolio</p>
+              <div className="p-2 sm:p-0">
+                <p className="text-[#dfc384] font-bold text-sm sm:text-base">7 Key Crops</p>
+                <p className="text-gray-300 text-[11px] sm:text-xs">Focused Agro Portfolio</p>
               </div>
-              <div>
-                <p className="text-[#dfc384] font-bold text-base">B2B Standard</p>
-                <p className="text-gray-300">Custom Packaging</p>
+              <div className="p-2 sm:p-0">
+                <p className="text-[#dfc384] font-bold text-sm sm:text-base">B2B Standard</p>
+                <p className="text-gray-300 text-[11px] sm:text-xs">Custom Packaging</p>
               </div>
-              <div>
-                <p className="text-[#dfc384] font-bold text-base">Port Access</p>
-                <p className="text-gray-300">Hazira & Mundra</p>
+              <div className="p-2 sm:p-0">
+                <p className="text-[#dfc384] font-bold text-sm sm:text-base">Port Access</p>
+                <p className="text-gray-300 text-[11px] sm:text-xs">Hazira & Mundra</p>
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function HomePage() {
       </section>
 
       {/* ── SECTION 4: PRODUCT PORTFOLIO ── */}
-      <section id="products" className="py-20 sm:py-24 bg-[#FCFBF7] scroll-mt-20">
+      <section id="products" className="py-14 sm:py-20 bg-[#FCFBF7] scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             badge="Product Portfolio"
@@ -110,7 +110,7 @@ export default function HomePage() {
             description="Explore our selection of Indian spices, seeds, and agricultural products for business sourcing requirements."
           />
 
-          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
+          <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-7">
             {products.map((product) => (
               <ProductCard key={product.slug} product={product} />
             ))}
@@ -121,13 +121,13 @@ export default function HomePage() {
                 <div className="p-3 bg-white/10 rounded-lg w-fit mb-4">
                   <Sparkles className="w-6 h-6 text-[#dfc384]" />
                 </div>
-                <h3 className="text-xl font-bold font-editorial">Looking for Mixed or Multi-Product Consignments?</h3>
-                <p className="text-xs sm:text-sm text-gray-300 mt-3 leading-relaxed">
+                <h3 className="text-lg sm:text-xl font-bold font-editorial">Looking for Mixed or Multi-Product Consignments?</h3>
+                <p className="text-xs sm:text-sm text-gray-300 mt-2 sm:mt-3 leading-relaxed">
                   We coordinate combined container stuffing (FCL & LCL) across spices, seeds, and botanical products tailored to your order requirements.
                 </p>
               </div>
 
-              <div className="pt-6">
+              <div className="pt-5 sm:pt-6">
                 <Link
                   href="/contact?product=Multiple%20Products"
                   className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#D92525] hover:bg-[#b91c1c] text-white text-xs font-semibold uppercase tracking-wider transition"
@@ -139,10 +139,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-10 sm:mt-12 text-center">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#0A2540] hover:text-[#D92525] transition"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#0A2540] hover:text-[#D92525] transition"
             >
               <span>View Full Product Catalogue & Specifications</span>
               <ChevronRight className="w-4 h-4" />
@@ -152,12 +152,12 @@ export default function HomePage() {
       </section>
 
       {/* ── SECTION 5: ABOUT NILKANTH WORLD EXIM ── */}
-      <section className="py-20 sm:py-24 bg-white border-y border-gray-100">
+      <section className="py-14 sm:py-20 bg-white border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Visual Frame */}
             <div className="relative">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border-2 sm:border-4 border-white">
                 <Image
                   src="/images/about-export.webp"
                   alt="Agricultural sourcing and quality handling scene - Nilkanth World Exim"
@@ -167,10 +167,10 @@ export default function HomePage() {
                 />
               </div>
 
-              {/* Float badge */}
-              <div className="absolute -bottom-6 -right-4 sm:right-6 bg-[#06192a] text-white p-5 rounded-xl shadow-xl border border-[#163b60] max-w-xs">
+              {/* Float badge on desktop / clean card on mobile */}
+              <div className="mt-4 sm:mt-0 sm:absolute sm:-bottom-6 sm:right-6 bg-[#06192a] text-white p-4 sm:p-5 rounded-xl shadow-xl border border-[#163b60] sm:max-w-xs">
                 <p className="text-xs uppercase tracking-wider text-[#dfc384] font-semibold">Strategic Location</p>
-                <p className="text-sm font-medium mt-1">Surat, Gujarat — Hub of western Indian agricultural corridors</p>
+                <p className="text-xs sm:text-sm font-medium mt-1">Surat, Gujarat — Hub of western Indian agricultural corridors</p>
               </div>
             </div>
 

@@ -145,8 +145,8 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl border border-gray-200/80 p-6 sm:p-8 lg:p-10">
-      <div className="border-b border-gray-100 pb-5 mb-6">
+    <div className="bg-white rounded-2xl shadow-xl border border-gray-200/80 p-4 sm:p-8 lg:p-10">
+      <div className="border-b border-gray-100 pb-4 sm:pb-5 mb-5 sm:mb-6">
         <h3 className="text-xl sm:text-2xl font-bold text-[#0A2540] font-editorial">
           Submit Commercial Inquiry
         </h3>

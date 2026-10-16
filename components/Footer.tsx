@@ -47,12 +47,12 @@ export default function Footer() {
       </div>
 
       {/* Main Footer Links */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10">
           {/* Column 1: Brand & Bio (2 cols wide on desktop) */}
-          <div className="lg:col-span-2 space-y-4">
-            <div className="bg-white p-3 rounded-lg inline-block shadow-sm">
-              <div className="relative h-14 w-44">
+          <div className="sm:col-span-2 space-y-4">
+            <div className="bg-white p-2.5 sm:p-3 rounded-lg inline-block shadow-sm">
+              <div className="relative h-12 sm:h-14 w-36 sm:w-44">
                 <Image
                   src="/images/nilkanth-world-exim-logo.png"
                   alt="Nilkanth World Exim Logo"
