@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import ProductCard from "@/components/ProductCard";
+import CertificateLogo from "@/components/CertificateLogo";
 import { products } from "@/data/products";
 import { siteConfig } from "@/lib/site-config";
 
@@ -140,17 +141,17 @@ export default function HomePage() {
             {siteConfig.certifications.map((cert) => (
               <div
                 key={cert.id}
-                className="p-3.5 rounded-xl border border-gray-200 bg-[#FCFBF7] hover:border-[#0A2540] transition flex flex-col justify-between text-center group"
+                className="p-3.5 sm:p-4 rounded-2xl border border-gray-200/90 bg-white hover:border-[#0A2540] hover:shadow-md transition-all flex flex-col justify-between text-center group"
               >
                 <div>
-                  <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center mx-auto mb-2 text-[#0A2540] group-hover:scale-110 transition-transform">
-                    <Award className="w-4 h-4 text-[#B89453]" />
+                  <div className="h-16 flex items-center justify-center mb-2.5 group-hover:scale-105 transition-transform">
+                    <CertificateLogo id={cert.id} className="w-14 h-14" size={56} />
                   </div>
                   <h3 className="font-bold text-xs text-[#0A2540] leading-snug">{cert.shortCode}</h3>
                   <p className="text-[10px] text-gray-500 line-clamp-2 mt-1">{cert.description}</p>
                 </div>
-                <div className="mt-2 pt-2 border-t border-gray-200/60">
-                  <span className="inline-block text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">
+                <div className="mt-3 pt-2 border-t border-gray-100">
+                  <span className="inline-block text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-100/80">
                     {cert.badge}
                   </span>
                 </div>

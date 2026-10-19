@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SectionHeading from "@/components/SectionHeading";
+import CertificateLogo from "@/components/CertificateLogo";
 import { siteConfig } from "@/lib/site-config";
 import { products } from "@/data/products";
 
@@ -139,13 +140,13 @@ export default function AboutPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {siteConfig.certifications.map((c) => (
-                <div key={c.id} className="p-4 rounded-xl bg-gray-50 border border-gray-200 flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-[#0A2540] text-[#dfc384] flex items-center justify-center shrink-0 mt-0.5">
-                    <ShieldCheck className="w-4 h-4" />
+                <div key={c.id} className="p-4 rounded-xl bg-white border border-gray-200 shadow-sm flex items-start gap-3.5 hover:shadow-md transition">
+                  <div className="w-12 h-12 flex items-center justify-center shrink-0">
+                    <CertificateLogo id={c.id} className="w-12 h-12 drop-shadow-sm" size={48} />
                   </div>
                   <div>
                     <h4 className="font-bold text-xs text-[#0A2540]">{c.name}</h4>
-                    <p className="text-[11px] text-gray-500 mt-0.5">{c.issuer}</p>
+                    <p className="text-[11px] text-[#B89453] font-medium mt-0.5">{c.issuer}</p>
                     <p className="text-xs text-gray-600 mt-1 leading-relaxed">{c.description}</p>
                   </div>
                 </div>
