@@ -97,6 +97,17 @@ export default function RootLayout({
       "postalCode": siteConfig.contact.address.postalCode,
       "addressCountry": "IN"
     },
+    "taxID": siteConfig.business.gstin,
+    "vatID": siteConfig.business.gstin,
+    "founder": {
+      "@type": "Person",
+      "name": siteConfig.business.director,
+      "jobTitle": siteConfig.business.designation
+    },
+    "sameAs": [
+      siteConfig.social.instagram,
+      siteConfig.social.facebook
+    ],
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": siteConfig.contact.phoneRaw,

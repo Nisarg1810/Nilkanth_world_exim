@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useForm, ValidationError } from "@formspree/react";
 import {
   Send,
   CheckCircle2,
@@ -92,6 +93,10 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
     privacyConsent: false,
   });
 
+  // Formspree React Hook
+  const formspreeFormId = process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID || "mljgvzbv";
+  const [state, handleSubmit, reset] = useForm(formspreeFormId);
+
   useEffect(() => {
     if (activeProduct) {
       const match = productsList.find(
@@ -100,16 +105,6 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
       setFormData((prev) => ({ ...prev, product: match }));
     }
   }, [activeProduct]);
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [status, setStatus] = useState<{
-    type: "idle" | "success" | "error" | "unconfigured";
-    message: string;
-    details?: string;
-  }>({
-    type: "idle",
-    message: "",
-  });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -121,6 +116,27 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
+  };
+
+  const handleResetForm = () => {
+    reset();
+    setFormData({
+      fullName: "",
+      companyName: "",
+      email: "",
+      phone: "",
+      country: "",
+      product: defaultProduct,
+      estimatedQuantity: "",
+      incoterm: "FOB (Free On Board - Hazira / Mundra)",
+      destinationPort: "",
+      sampleRequest: false,
+      targetTimeline: "1 - 2 Months",
+      preferredCurrency: "USD ($)",
+      inquiryType: "Price Quotation",
+      message: "",
+      privacyConsent: false,
+    });
   };
 
   const generateWhatsAppUrl = () => {
@@ -139,71 +155,6 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
     ].filter(Boolean).join("\n");
 
     return `https://wa.me/${siteConfig.contact.whatsappDigits}?text=${encodeURIComponent(lines)}`;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setStatus({ type: "idle", message: "" });
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        setStatus({
-          type: "success",
-          message: "Commercial RFQ Received Successfully",
-          details: result.message || "Your export inquiry has been registered. Our Surat commercial desk will review your specifications, verify current crop arrivals, and send a proforma quotation within 24 hours.",
-        });
-        // Reset form
-        setFormData({
-          fullName: "",
-          companyName: "",
-          email: "",
-          phone: "",
-          country: "",
-          product: defaultProduct,
-          estimatedQuantity: "",
-          incoterm: "FOB (Free On Board - Hazira / Mundra)",
-          destinationPort: "",
-          sampleRequest: false,
-          targetTimeline: "1 - 2 Months",
-          preferredCurrency: "USD ($)",
-          inquiryType: "Price Quotation",
-          message: "",
-          privacyConsent: false,
-        });
-      } else if (response.status === 503) {
-        // Honest disclosure when email provider is not yet configured
-        setStatus({
-          type: "unconfigured",
-          message: "Email Server In Setup Mode — Instant WhatsApp Available",
-          details: result.error || "The server mail integration is in setup mode. Please tap the button below to forward your exact RFQ parameters directly to our commercial desk on WhatsApp (+91 81606 13430) for an immediate response.",
-        });
-      } else {
-        setStatus({
-          type: "error",
-          message: "Unable to process inquiry",
-          details: result.error || "Please check that all required fields are correctly completed.",
-        });
-      }
-    } catch {
-      setStatus({
-        type: "error",
-        message: "Network Error",
-        details: "A communication error occurred while connecting to the server. You can also contact us directly via WhatsApp (+91 81606 13430).",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (
@@ -256,50 +207,61 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
       </div>
 
       {/* Success Notification */}
-      {status.type === "success" && (
-        <div className="mb-6 p-5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-start gap-3 text-emerald-900 animate-fadeIn">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-          <div className="text-sm">
-            <h4 className="font-semibold text-emerald-800">{status.message}</h4>
-            <p className="mt-1 text-emerald-700 leading-relaxed text-xs sm:text-sm">{status.details}</p>
-          </div>
-        </div>
-      )}
-
-      {/* Unconfigured / Server Setup Disclosure Notification */}
-      {status.type === "unconfigured" && (
-        <div className="mb-6 p-5 bg-amber-50 border border-amber-300 rounded-xl flex items-start gap-3 text-amber-900 animate-fadeIn">
-          <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-          <div className="text-sm">
-            <h4 className="font-semibold text-amber-800">{status.message}</h4>
-            <p className="mt-1 text-amber-700 leading-relaxed text-xs sm:text-sm">{status.details}</p>
-            <div className="mt-3">
-              <a
-                href={generateWhatsAppUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow transition"
-              >
-                <MessageSquare className="w-4 h-4" />
-                <span>Send via WhatsApp (+91 81606 13430)</span>
-              </a>
+      {state.succeeded && (
+        <div className="mb-6 p-6 bg-emerald-50 border border-emerald-200 rounded-2xl animate-fadeIn">
+          <div className="flex items-start gap-3">
+            <CheckCircle2 className="w-6 h-6 text-emerald-600 shrink-0 mt-0.5" />
+            <div className="text-sm flex-1">
+              <h4 className="font-bold text-emerald-900 text-base">
+                Commercial RFQ Received Successfully
+              </h4>
+              <p className="mt-1 text-emerald-800 leading-relaxed text-xs sm:text-sm">
+                Your export inquiry for <span className="font-semibold">{formData.product}</span> has been dispatched directly to Nilkanth World Exim via Formspree. Our Surat commercial desk will review your specifications, verify crop availability, and send a proforma quotation within 24 hours.
+              </p>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <a
+                  href={generateWhatsAppUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow transition"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span>Forward Details on WhatsApp (+91 81606 13430)</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={handleResetForm}
+                  className="px-4 py-2 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg text-xs font-semibold transition"
+                >
+                  Submit Another Inquiry
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Error Notification */}
-      {status.type === "error" && (
+      {/* Formspree Submission Error Notification */}
+      {state.errors && !state.succeeded && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3 text-red-900 animate-fadeIn">
           <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
           <div className="text-sm">
-            <h4 className="font-semibold text-red-800">{status.message}</h4>
-            <p className="mt-1 text-red-700 text-xs sm:text-sm">{status.details}</p>
+            <h4 className="font-semibold text-red-800">Inquiry Dispatch Error</h4>
+            <p className="mt-1 text-red-700 text-xs sm:text-sm">
+              There was an issue dispatching your inquiry. Please check the highlighted fields below or connect directly with our export desk on WhatsApp (+91 81606 13430).
+            </p>
           </div>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      {!state.succeeded && (
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Formspree Email Subject Configuration */}
+          <input
+            type="hidden"
+            name="_subject"
+            value={`[B2B Export RFQ] ${formData.inquiryType}: ${formData.product} - ${formData.companyName || formData.fullName}`}
+          />
         {/* Contact details row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {/* Full Name */}
@@ -352,6 +314,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
               placeholder="sourcing@company.com"
               className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 transition"
             />
+            <ValidationError prefix="Business Email" field="email" errors={state.errors} className="text-xs text-red-600 mt-1 block" />
           </div>
 
           {/* Phone / WhatsApp */}
@@ -560,6 +523,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
             placeholder="Please specify purity percentage (e.g. 99% Sortex), moisture threshold, packaging type (25kg PP / 50kg Kraft paper), palletization preferences, and target discharge seaport..."
             className="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0A2540] focus:border-[#0A2540] text-sm text-gray-900 transition resize-y"
           />
+          <ValidationError prefix="Message" field="message" errors={state.errors} className="text-xs text-red-600 mt-1 block" />
         </div>
 
         {/* Privacy Consent */}
@@ -585,13 +549,13 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
         <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={state.submitting}
             className="flex-1 flex items-center justify-center gap-2 bg-[#0A2540] hover:bg-[#10365c] text-white font-medium py-3.5 px-6 rounded-lg text-sm shadow-md transition-all disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A2540] group"
           >
-            {isSubmitting ? (
+            {state.submitting ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin text-[#B89453]" />
-                <span>Processing RFQ...</span>
+                <span>Dispatching RFQ to Formspree...</span>
               </>
             ) : (
               <>
@@ -612,6 +576,7 @@ function ContactFormInner({ initialProduct }: ContactFormProps) {
           </a>
         </div>
       </form>
+      )}
 
       <div className="mt-6 pt-5 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-gray-500">
         <div className="flex items-center gap-1.5">

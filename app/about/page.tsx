@@ -99,6 +99,18 @@ export default function AboutPage() {
                   <span>Transparent Documentation</span>
                 </div>
               </div>
+
+              {/* Verified Business Credentials */}
+              <div className="mt-6 p-4 rounded-xl bg-gray-50 border border-gray-200 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-700">
+                <div>
+                  <span className="block font-bold text-[#0A2540] uppercase tracking-wider text-[11px]">Director / Leadership</span>
+                  <span className="text-sm font-semibold text-gray-900 mt-0.5 block">{siteConfig.business.director}</span>
+                </div>
+                <div>
+                  <span className="block font-bold text-[#0A2540] uppercase tracking-wider text-[11px]">GST Identification Number</span>
+                  <span className="text-sm font-mono font-bold text-[#B89453] mt-0.5 block">{siteConfig.business.gstin}</span>
+                </div>
+              </div>
             </div>
 
             <div className="lg:col-span-5">

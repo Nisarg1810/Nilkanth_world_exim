@@ -48,6 +48,20 @@ export const siteConfig = {
     googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14876.81525143328!2d72.805878!3d21.222384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04e930f30c90f%3A0x6b3f9eb8e100808b!2sSinganpore%20Causeway%20Rd%2C%20Surat%2C%20Gujarat%20395004!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
   },
 
+  business: {
+    director: "Akshar Sutariya",
+    designation: "Director",
+    gstin: "24UPWPS3801E1Z7",
+    stateCode: "24 (Gujarat, India)",
+    jurisdiction: "Surat, Gujarat",
+  },
+
+  social: {
+    instagram: "https://www.instagram.com/nilkanth.world.exim?utm_source=qr&srtk=anN6NWFnNmtud3kx",
+    facebook: "https://www.facebook.com/profile.php?id=61595539585369",
+    instagramHandle: "@nilkanth.world.exim",
+  },
+
   tradeMetrics: [
     { label: "Commodity Focus", value: "7 Core Crops", detail: "Spices, Seeds & Botanicals" },
     { label: "Port Proximity", value: "Hazira & Mundra", detail: "Fast Maritime Clearance" },
