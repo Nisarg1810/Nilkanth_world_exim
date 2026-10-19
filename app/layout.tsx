@@ -41,8 +41,13 @@ export const metadata: Metadata = {
   authors: [{ name: "Nilkanth World Exim" }],
   creator: "Nilkanth World Exim",
   icons: {
-    icon: "/images/nilkanth-world-exim-logo.png",
-    apple: "/images/nilkanth-world-exim-logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   openGraph: {
     type: "website",
