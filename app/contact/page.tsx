@@ -38,6 +38,10 @@ export default function ContactPage() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-5">
+            <Breadcrumbs variant="dark" items={[{ label: "Contact Us" }]} />
+          </div>
+
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#dfc384] text-xs font-semibold tracking-wider uppercase mb-4 border border-white/15">
               <span>B2B Commercial Communications</span>
@@ -51,11 +55,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
-      {/* Breadcrumbs Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
-        <Breadcrumbs items={[{ label: "Contact Us" }]} />
-      </div>
 
       {/* ── MAIN CONTACT SECTION ── */}
       <section className="py-14 sm:py-20">

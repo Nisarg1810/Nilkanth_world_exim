@@ -39,6 +39,10 @@ export default function QualitySourcingPage() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-5">
+            <Breadcrumbs variant="dark" items={[{ label: "Quality & Sourcing" }]} />
+          </div>
+
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-[#dfc384] text-xs font-semibold tracking-wider uppercase mb-4 border border-white/15">
               <span>Trade Methodology</span>
@@ -52,11 +56,6 @@ export default function QualitySourcingPage() {
           </div>
         </div>
       </section>
-
-      {/* Breadcrumbs Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
-        <Breadcrumbs items={[{ label: "Quality & Sourcing" }]} />
-      </div>
 
       {/* ── TRANSPARENCY NOTICE ── */}
       <section className="py-12 bg-white border-b border-gray-200">

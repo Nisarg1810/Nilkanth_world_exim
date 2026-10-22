@@ -31,6 +31,10 @@ export default function ProductsPage() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-5">
+            <Breadcrumbs variant="dark" items={[{ label: "Products" }]} />
+          </div>
+
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-[#dfc384] text-xs font-semibold tracking-wider uppercase mb-4 border border-white/15">
               <span>B2B Export Catalogue</span>
@@ -44,11 +48,6 @@ export default function ProductsPage() {
           </div>
         </div>
       </section>
-
-      {/* Breadcrumbs Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
-        <Breadcrumbs items={[{ label: "Products" }]} />
-      </div>
 
       {/* ── PRODUCTS CATALOGUE GRID ── */}
       <section className="py-16 sm:py-20">

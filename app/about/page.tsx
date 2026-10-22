@@ -43,6 +43,10 @@ export default function AboutPage() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-5">
+            <Breadcrumbs variant="dark" items={[{ label: "About Us" }]} />
+          </div>
+
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#dfc384] text-xs font-semibold tracking-wider uppercase mb-4 border border-white/15">
               <span>Company Introduction</span>
@@ -56,11 +60,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* Breadcrumbs Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
-        <Breadcrumbs items={[{ label: "About Us" }]} />
-      </div>
 
       {/* ── 2. COMPANY INTRODUCTION ── */}
       <section className="py-16 sm:py-20 bg-white">
