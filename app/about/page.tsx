@@ -294,18 +294,18 @@ export default function AboutPage() {
 
           <div className="mt-12 bg-white rounded-3xl shadow-xl border border-amber-200/60 overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0">
             {/* Left Column: Director Portrait */}
-            <div className="lg:col-span-5 relative bg-gradient-to-tr from-[#071c2f] to-[#12314a] p-8 sm:p-10 flex flex-col items-center justify-between text-white overflow-hidden">
+            <div className="lg:col-span-5 relative bg-gradient-to-tr from-[#071c2f] to-[#12314a] p-6 sm:p-8 lg:p-10 flex flex-col items-center justify-center text-white overflow-hidden space-y-6">
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#B89453]/10 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
               <div className="relative z-10 w-full flex flex-col items-center text-center">
-                <div className="relative w-60 sm:w-68 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 ring-1 ring-amber-400/30 mb-6">
+                <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20 ring-1 ring-amber-400/30 mb-5">
                   <Image
                     src={siteConfig.business.fullImage}
                     alt={`${siteConfig.business.director} - ${siteConfig.business.designation}, Nilkanth World Exim`}
                     fill
-                    sizes="(max-width: 1024px) 280px, 320px"
-                    className="object-cover object-top"
+                    sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 340px"
+                    className="object-cover object-center"
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -329,7 +329,7 @@ export default function AboutPage() {
               </div>
 
               {/* Verified Credentials Pill */}
-              <div className="relative z-10 w-full mt-6 pt-5 border-t border-white/10 grid grid-cols-2 gap-3 text-left text-xs">
+              <div className="relative z-10 w-full max-w-[320px] pt-4 border-t border-white/10 grid grid-cols-2 gap-3 text-left text-xs">
                 <div className="bg-white/5 backdrop-blur-sm p-3 rounded-xl border border-white/10">
                   <span className="text-[10px] uppercase text-gray-400 block font-semibold">Tax Identity</span>
                   <span className="text-xs font-mono font-bold text-amber-300 block mt-0.5">{siteConfig.business.gstin}</span>
