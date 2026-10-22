@@ -50,7 +50,11 @@ export const siteConfig = {
 
   business: {
     director: "Akshar Sutariya",
-    designation: "Director",
+    designation: "Director & Founder",
+    image: "/images/akshar-sutariya-square.webp",
+    fullImage: "/images/akshar-sutariya.webp",
+    bio: "Leading international agricultural commodity exports from Surat, Gujarat with a commitment to uncompromised quality, verified Sortex grading, and transparent B2B trade partnerships across global markets.",
+    quote: "In global commodity trade, trust is earned by delivering precisely what was promised: certified purity, verified moisture levels, and on-schedule maritime dispatch.",
     gstin: "24UPWPS3801E1Z7",
     stateCode: "24 (Gujarat, India)",
     jurisdiction: "Surat, Gujarat",

@@ -128,16 +128,25 @@ export default function ContactPage() {
                   </div>
 
                   {/* Director / Commercial Leadership */}
-                  <div className="flex items-start gap-3.5">
-                    <div className="p-2.5 rounded-lg bg-[#E5EAE1] text-[#173F35] shrink-0 mt-0.5">
-                      <Building2 className="w-5 h-5 text-[#B89453]" />
+                  <div className="flex items-start gap-3.5 p-3 rounded-xl bg-gradient-to-r from-amber-50/60 via-white to-emerald-50/40 border border-amber-200/80 shadow-sm">
+                    <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border-2 border-amber-300/80 shadow-sm">
+                      <Image
+                        src={siteConfig.business.image}
+                        alt={`${siteConfig.business.director} - Director, Nilkanth World Exim`}
+                        fill
+                        sizes="48px"
+                        className="object-cover object-top"
+                      />
                     </div>
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500">Commercial Leadership</h4>
-                      <p className="text-sm font-semibold text-[#0A2540] mt-1">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-[#B89453]">Commercial Leadership</h4>
+                        <span className="inline-flex items-center px-1.5 py-0.2 text-[10px] font-semibold bg-emerald-100 text-emerald-800 rounded">Verified</span>
+                      </div>
+                      <p className="text-sm font-bold text-[#0A2540] mt-0.5 truncate">
                         {siteConfig.business.director}
                       </p>
-                      <span className="text-xs text-gray-400">Director • Nilkanth World Exim</span>
+                      <span className="text-xs text-gray-500 block">{siteConfig.business.designation} • Nilkanth World Exim</span>
                     </div>
                   </div>
 
