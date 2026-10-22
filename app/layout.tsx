@@ -22,7 +22,7 @@ const serifFont = DM_Serif_Display({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Nilkanth World Exim | Indian Spices & Agricultural Products",
+    default: "Nilkanth World Exim",
     template: "%s | Nilkanth World Exim",
   },
   description: siteConfig.description,
@@ -43,17 +43,22 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-48x48.png", type: "image/png", sizes: "48x48" },
+      { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+      { url: "/favicon-192x192.png", type: "image/png", sizes: "192x192" },
       { url: "/icon.png", type: "image/png", sizes: "512x512" },
     ],
+    shortcut: "/favicon.ico",
     apple: [
       { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
+  manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: siteConfig.url,
-    title: "Nilkanth World Exim | Indian Spices & Agricultural Products",
+    title: "Nilkanth World Exim",
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
@@ -67,7 +72,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nilkanth World Exim | Indian Spices & Agricultural Products",
+    title: "Nilkanth World Exim",
     description: siteConfig.description,
     images: ["/images/hero-spices.webp"],
   },
@@ -84,37 +89,57 @@ export default function RootLayout({
 }) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": siteConfig.name,
-    "url": siteConfig.url,
-    "logo": `${siteConfig.url}/images/nilkanth-world-exim-logo.png`,
-    "description": siteConfig.description,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": `${siteConfig.contact.address.line1}, ${siteConfig.contact.address.line2}`,
-      "addressLocality": siteConfig.contact.address.city,
-      "addressRegion": siteConfig.contact.address.state,
-      "postalCode": siteConfig.contact.address.postalCode,
-      "addressCountry": "IN"
-    },
-    "taxID": siteConfig.business.gstin,
-    "vatID": siteConfig.business.gstin,
-    "founder": {
-      "@type": "Person",
-      "name": siteConfig.business.director,
-      "jobTitle": siteConfig.business.designation
-    },
-    "sameAs": [
-      siteConfig.social.instagram,
-      siteConfig.social.facebook
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": siteConfig.contact.phoneRaw,
-      "contactType": "sales",
-      "email": siteConfig.contact.email,
-      "availableLanguage": ["English", "Hindi", "Gujarati"]
-    }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${siteConfig.url}/#website`,
+        "url": siteConfig.url,
+        "name": "Nilkanth World Exim",
+        "alternateName": [
+          "NILKANTH WORLD EXIM",
+          "nilkanth world exim",
+          "Nilkanth World Exim Surat"
+        ],
+        "publisher": {
+          "@id": `${siteConfig.url}/#organization`
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteConfig.url}/#organization`,
+        "name": siteConfig.name,
+        "url": siteConfig.url,
+        "logo": `${siteConfig.url}/icon.png`,
+        "image": `${siteConfig.url}/icon.png`,
+        "description": siteConfig.description,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": `${siteConfig.contact.address.line1}, ${siteConfig.contact.address.line2}`,
+          "addressLocality": siteConfig.contact.address.city,
+          "addressRegion": siteConfig.contact.address.state,
+          "postalCode": siteConfig.contact.address.postalCode,
+          "addressCountry": "IN"
+        },
+        "taxID": siteConfig.business.gstin,
+        "vatID": siteConfig.business.gstin,
+        "founder": {
+          "@type": "Person",
+          "name": siteConfig.business.director,
+          "jobTitle": siteConfig.business.designation
+        },
+        "sameAs": [
+          siteConfig.social.instagram,
+          siteConfig.social.facebook
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": siteConfig.contact.phoneRaw,
+          "contactType": "sales",
+          "email": siteConfig.contact.email,
+          "availableLanguage": ["English", "Hindi", "Gujarati"]
+        }
+      }
+    ]
   };
 
   return (
