@@ -181,12 +181,15 @@ export default function Footer() {
 
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#b89453] shrink-0" />
-                <a
-                  href={`tel:${siteConfig.contact.phoneRaw}`}
-                  className="text-xs hover:text-white transition"
-                >
-                  {siteConfig.contact.phone}
-                </a>
+                <div>
+                  <a
+                    href={`tel:${siteConfig.contact.phoneRaw}`}
+                    className="text-xs hover:text-white transition block"
+                  >
+                    {siteConfig.contact.phone}
+                  </a>
+                  <span className="text-[11px] text-gray-400 block">Daily 24 Hours</span>
+                </div>
               </div>
 
               <div className="flex items-center gap-2.5">

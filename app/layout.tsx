@@ -136,7 +136,21 @@ export default function RootLayout({
           "telephone": siteConfig.contact.phoneRaw,
           "contactType": "sales",
           "email": siteConfig.contact.email,
-          "availableLanguage": ["English", "Hindi", "Gujarati"]
+          "availableLanguage": ["English", "Hindi", "Gujarati"],
+          "hoursAvailable": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "00:00",
+            "closes": "23:59"
+          }
         }
       }
     ]

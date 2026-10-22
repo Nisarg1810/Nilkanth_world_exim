@@ -105,7 +105,10 @@ export default function ContactPage() {
                       >
                         {siteConfig.contact.phone}
                       </a>
-                      <span className="text-xs text-gray-400">Available Mon–Sat (9:00 AM – 7:00 PM IST)</span>
+                      <span className="text-xs text-gray-500 flex items-center gap-1.5 mt-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block shrink-0" />
+                        Available Daily 24 Hours
+                      </span>
                     </div>
                   </div>
 

@@ -36,6 +36,7 @@ export const siteConfig = {
     phoneRaw: "+918160613430",
     whatsappDigits: "918160613430",
     email: "nilkanthworldexim@gmail.com",
+    hours: "Available Daily 24 Hours (24/7)",
     address: {
       line1: "D-601, Saffron Sky",
       line2: "Singanpore Causeway Road",
