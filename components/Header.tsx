@@ -46,14 +46,14 @@ export default function Header() {
             className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[#0A2540] rounded-lg p-0.5"
             title="Nilkanth World Exim Homepage"
           >
-            <div className="relative h-14 sm:h-16 w-44 sm:w-52 flex items-center">
+            <div className="relative h-14 sm:h-16 aspect-[1.5/1] flex items-center">
               <Image
-                src="/images/nilkanth-world-exim-logo.png"
+                src="/images/nilkanth-world-exim-logo.svg"
                 alt="Nilkanth World Exim - Export Trading Company Logo"
                 fill
                 priority
-                sizes="(max-width: 640px) 180px, 210px"
-                className="object-contain object-left"
+                unoptimized
+                className="object-contain"
               />
             </div>
           </Link>

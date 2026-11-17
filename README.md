@@ -91,7 +91,8 @@ npm run start
 ## 🖼️ Image Assets
 
 All original high-resolution photographs and the company brand logo are located in `public/images/`:
-- `nilkanth-world-exim-logo.png` — Official Nilkanth World Exim brand logo
+- `nilkanth-world-exim-logo.svg` — Official Nilkanth World Exim TM vector brand logo
+- `nilkanth-world-exim-logo.png` — Official Nilkanth World Exim TM brand logo (high-resolution raster)
 - `hero-spices.webp` — 16:9 cinematic arrangement of all 7 commodities
 - `turmeric.webp` — Turmeric fingers & powder
 - `cumin-seeds.webp` — Whole cumin seeds in ceramic bowl
